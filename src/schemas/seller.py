@@ -22,3 +22,8 @@ class ReturnedSeller(BaseModel):
 # Схема для детального отображения продавца с его книгами
 class DetailedSeller(ReturnedSeller):
     books: List[ReturnedBook] = []
+
+class SellerUpdate(BaseModel):
+    first_name: Optional[str] = None
+    last_name: Optional[str] = None
+    e_mail: Optional[EmailStr] = None
