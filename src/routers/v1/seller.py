@@ -1,5 +1,3 @@
-# ВСТАВЛЯЮ СРАЗУ ВЕСЬ КОД
-
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -18,8 +16,8 @@ DBSession = Annotated[AsyncSession, Depends(get_async_session)]
 async def create_seller(seller: IncomingSeller, session: DBSession):
     new_seller = Seller(**seller.dict())
     session.add(new_seller)
-    await session.commit()
-    await session.refresh(new_seller)  # Обязательно обновляем объект
+    await session.commit()  # Сохраняем объект в БД
+    await session.refresh(new_seller)  # Загружаем обновленный объект с присвоенным ID
     return new_seller
 
 # 2) получение списка всех продавцов (без password)
@@ -64,4 +62,3 @@ async def delete_seller(seller_id: int, session: DBSession):
         await session.commit()
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     return Response(status_code=status.HTTP_404_NOT_FOUND)
-
