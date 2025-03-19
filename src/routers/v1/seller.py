@@ -11,13 +11,13 @@ from src.schemas.seller import IncomingSeller, ReturnedSeller, DetailedSeller
 seller_router = APIRouter(tags=["seller"], prefix="/api/v1/seller")
 DBSession = Annotated[AsyncSession, Depends(get_async_session)]
 
-# 1) регистрация продавца
+# 1) регистрация продавца - ТУТ КАЖЕТСЯ БЫЛА ОСНОВНАЯ ПРОБЛЕМА С ВОЗВРАЩЕНИЕМ 500
 @seller_router.post("/", response_model=ReturnedSeller, status_code=status.HTTP_201_CREATED)
 async def create_seller(seller: IncomingSeller, session: DBSession):
     new_seller = Seller(**seller.dict())
     session.add(new_seller)
-    await session.commit()  # Сохраняем объект в БД
-    await session.refresh(new_seller)  # Загружаем обновленный объект с присвоенным ID
+    await session.commit()
+    await session.refresh(new_seller)  
     return new_seller
 
 # 2) получение списка всех продавцов (без password)
