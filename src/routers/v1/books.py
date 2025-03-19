@@ -37,6 +37,7 @@ async def create_book(
             "author": book.author,
             "year": book.year,
             "pages": book.pages,
+            "seller_id": book.seller_id,
         }
     )
 
@@ -86,6 +87,7 @@ async def update_book(book_id: int, new_book_data: ReturnedBook, session: DBSess
         updated_book.title = new_book_data.title
         updated_book.year = new_book_data.year
         updated_book.pages = new_book_data.pages
+        updated_book.seller_id = new_book_data.seller_id # ДОБАВИЛ
 
         await session.flush()
 
