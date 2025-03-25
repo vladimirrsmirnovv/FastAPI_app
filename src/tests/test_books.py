@@ -7,12 +7,12 @@ from fastapi import status
 from icecream import ic
 
 
-@pytest.fixture
-async def seller(db_session):
-    seller = Seller(name="Test Seller")
-    db_session.add(seller)
-    await db_session.flush()
-    return seller
+# @pytest.fixture
+# async def seller(db_session):
+#     seller = Seller(name="Test Seller")
+#     db_session.add(seller)
+#     await db_session.flush()
+#     return seller
 
 
 # Тест на ручку создающую книгу
